@@ -184,7 +184,15 @@ bool Sodaq_N3X::connect(const char* apn, const char* forceOperator, const char* 
         return false;
     }
 
-    if (!checkCOPS(forceOperator != 0 ? forceOperator : AUTOMATIC_OPERATOR)) {
+    bool cops_succeeded = false;
+    for (int i = 0; i < 3; i++) {
+        if (checkCOPS(forceOperator != 0 ? forceOperator : AUTOMATIC_OPERATOR)) {
+            cops_succeeded = true;
+            break;
+        }
+        sodaq_wdt_safe_delay(1000);
+    }
+    if (!cops_succeeded) {
         return false;
     }
 
@@ -205,7 +213,7 @@ bool Sodaq_N3X::connect(const char* apn, const char* forceOperator, const char* 
 
     if (millis() - tm > ATTACH_NEED_REBOOT) {
         reboot();
-        
+
         if (!waitForSignalQuality()) {
             return false;
         }
@@ -235,7 +243,7 @@ bool Sodaq_N3X::attachGprs(uint32_t timeout)
     uint32_t delay_count = 500;
 
     while (!is_timedout(start, timeout)) {
-        if (isAttached() && isDefinedIP4()) {
+        if (isDefinedIP4()) {
             return true;
         }
 
@@ -418,24 +426,10 @@ bool Sodaq_N3X::isAlive()
     return execCommand(STR_AT, 450);
 }
 
-// Returns true if the modem is attached to the network and has an activated data connection.
-bool Sodaq_N3X::isAttached()
-{
-    println("AT+CGATT?");
-
-    char buffer[16];
-
-    if (readResponse(buffer, sizeof(buffer), "+CGATT: ", 10 * 1000) != GSMResponseOK) {
-        return false;
-    }
-
-    return (strcmp(buffer, "1") == 0);
-}
-
 // Returns true if the modem is connected to the network and IP address is not 0.0.0.0.
 bool Sodaq_N3X::isConnected()
 {
-    return isAttached() && waitForSignalQuality(ISCONNECTED_CSQ_TIMEOUT) && isDefinedIP4();
+    return isDefinedIP4() && waitForSignalQuality(ISCONNECTED_CSQ_TIMEOUT);
 }
 
 // Returns true if defined IP4 address is not 0.0.0.0.

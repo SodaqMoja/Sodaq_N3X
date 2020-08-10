@@ -155,9 +155,6 @@ public:
     // Returns true if the modem replies to "AT" commands without timing out.
     bool isAlive();
 
-    // Returns true if the modem is attached to the network and has an activated data connection.
-    bool isAttached();
-
     // Returns true if the modem is connected to the network and IP address is not 0.0.0.0.
     bool isConnected();
 
