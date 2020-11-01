@@ -37,8 +37,8 @@ overrideNconfigParam	KEYWORD2
 ping	KEYWORD2
 purgeAllResponsesRead	KEYWORD2
 setApn	KEYWORD2
-setBand	KEYWORD2
-setCdp	KEYWORD2
+setBandSel	KEYWORD2
+setDefaultApn	KEYWORD2
 setIndicationsActive	KEYWORD2
 setOperator	KEYWORD2
 setRadioActive	KEYWORD2
