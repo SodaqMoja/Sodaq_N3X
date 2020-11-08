@@ -566,7 +566,9 @@ bool Sodaq_N3X::setDefaultApn(const char* apn)
     }
 
     if (sscanf(buffer, "%d,\"%[^\"]\"", &pdp_type, default_apn) != 2) {
-        return false;
+        if (sscanf(buffer, "%d,\"\"", &pdp_type) != 1) {
+            return false;
+        }
     }
     else if (pdp_type == 1 && strcmp(default_apn, apn) == 0) {
         return true;
