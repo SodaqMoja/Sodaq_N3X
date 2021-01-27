@@ -953,7 +953,7 @@ bool Sodaq_N3X::checkURC(char* buffer)
         debugPrintln(param2);
 
         if (param1 >= 0 && param1 < SOCKET_COUNT) {
-            _socketPendingBytes[param1] = param2;
+            _socketPendingBytes[param1] += param2;
         }
 
         return true;
