@@ -789,7 +789,7 @@ size_t Sodaq_N3X::socketReceive(uint8_t socketID, uint8_t* buffer, size_t size)
         return 0;
     }
 
-    if (sscanf(outBuffer, "%d,\"%*[^\"]\",%*d,%d,\"%[^\"]\",%*d", &retSocketID, &retSize, outBuffer) != 3) {
+    if (sscanf(outBuffer, "+USORF: %d,\"%*[^\"]\",%*d,%d,\"%[^\"]\"", &retSocketID, &retSize, outBuffer) != 3) {
         return 0;
     }
 
