@@ -783,9 +783,7 @@ size_t Sodaq_N3X::socketReceive(uint8_t socketID, uint8_t* buffer, size_t size)
     size = min(size, min(SODAQ_N3X_MAX_UDP_BUFFER, _socketPendingBytes[socketID]));
 
     print("AT+USORF=");
-    print(socketID);
-    print(',');
-    println(size);
+    println(socketID);
 
     if (readResponse(outBuffer, sizeof(outBuffer)) != GSMResponseOK) {
         return 0;
