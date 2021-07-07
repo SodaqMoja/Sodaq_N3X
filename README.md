@@ -2,7 +2,6 @@
 
 Arduino library for using with the SARA N3X. Tested on Sodaq SARA N310.
 
-
 ## Contributing
 
 1. Fork it!
@@ -11,10 +10,9 @@ Arduino library for using with the SARA N3X. Tested on Sodaq SARA N310.
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request
 
-
 ## License
 
-Copyright (c) 2020, SODAQ
+Copyright (c) 2020 - 2021, SODAQ
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
